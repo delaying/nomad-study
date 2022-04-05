@@ -11,21 +11,29 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root = document.getElementById('root');
-    function Btn({text, animal}){
-        return <button style={{
+    function Btn({text, changeValue}){
+        return (
+            <button 
+            onClick={changeValue}
+            style={{
             backgroundColor:"tomato",
             color:"white",
             padding:"10px 20px",
             border:0,
-            borderRadius:10,
-        }}>{text} {animal}</button>
+            borderRadius:16,
+        }}>{text}</button>
+        )
     }
 
+    const MemorizeBtn = React.memo(Btn);
+
     function App(){
+        const [value, setValue] = React.useState("Save Changes"); 
+        const changeValue = ()=>setValue("React Changes");
         return(
             <div>
-                <Btn text="Save Change" animal="cat"/>
-                <Btn text="Continue" animal="dog" />
+                <MemorizeBtn text={value} changeValue={changeValue}/>
+                <MemorizeBtn text="Continue"/>
             </div>
         );
     } 
